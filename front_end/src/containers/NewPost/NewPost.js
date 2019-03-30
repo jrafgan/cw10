@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import ItemForm from "../../components/itemForm/itemForm";
-import {createItem} from "../../store/actions/itemActions";
+import {createPost} from "../../store/actions/newsActions";
 import {connect} from "react-redux";
 
-class NewItem extends Component {
+class NewPost extends Component {
     createItem = itemData => {
         this.props.onItemCreated(itemData).then(() => {
            this.props.history.push('/');
@@ -13,7 +13,7 @@ class NewItem extends Component {
     render() {
         return (
             <Fragment>
-                {this.props.item ? <h2>Изменить предмет</h2> : <h2>Создать новый предмет</h2>}
+                <h2>New post</h2>
                 <ItemForm onSubmit={this.createItem} />
             </Fragment>
         );
@@ -21,7 +21,7 @@ class NewItem extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    onItemCreated: itemData => dispatch(createItem(itemData))
+    onItemCreated: itemData => dispatch(createPost(itemData))
 });
 
-export default connect(null, mapDispatchToProps)(NewItem);
+export default connect(null, mapDispatchToProps)(NewPost);

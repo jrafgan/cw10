@@ -31,3 +31,11 @@ ADD CONSTRAINT `news_id`
 INSERT INTO `Comments` (`id`, `news_id`, `author`, `comment`) VALUES ('1', '1', 'anonymous', 'jdfhqwhfiouiqr0wu');
 INSERT INTO `Comments` (`id`, `news_id`, `author`, `comment`) VALUES ('2', '1', 'dsjhfjksfhkl', 'dsjnjkfhkl kjdfhashk ksjdfhj');
 
+ALTER TABLE `Comments`
+DROP FOREIGN KEY `news_id`;
+ALTER TABLE `Comments`
+ADD CONSTRAINT `news_id`
+  FOREIGN KEY (`news_id`)
+  REFERENCES `cw10`.`News` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

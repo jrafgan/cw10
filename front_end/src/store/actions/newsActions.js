@@ -66,3 +66,12 @@ export const deletePost = id => {
             });
     };
 };
+
+export const deleteComment = id => {
+    return dispatch => {
+        return axios.delete('/news/' + id).then(
+            response => {
+                console.log('Произошло удаление ', response.data);
+            });
+    };
+};

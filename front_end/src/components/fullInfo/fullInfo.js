@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
-import {fetchComment, fetchItem, fetchNews, postNewComment} from "../../store/actions/newsActions";
+import {deleteComment, fetchComment, fetchItem, postNewComment} from "../../store/actions/newsActions";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
 import NewsThumbnail from "../newsThumbnail/newsThumbnail";
 
 class FullInfo extends Component {
@@ -20,26 +19,16 @@ class FullInfo extends Component {
     };
 
     inputChangeHandler = e => {
-        console.log(e.target);
         this.setState({
             [e.target.name]: e.target.value,
+            id: this.props.match.params.id
         });
     };
 
     submitFormHandler = e => {
         e.preventDefault();
-
-        const formData = new FormData();
-
-        Object.keys(this.state).forEach(key => {
-            if (this.state[key] !== null) {
-                formData.append(key, this.state[key]);
-                console.log(key, this.state[key])
-            }
-            formData.append(this.state.id, this.props.match.params.id);
-        });
-
-        this.props.commentSubmit(formData);
+        this.props.commentSubmit(this.state);
+        console.log(this.state);
     };
 
     render() {
@@ -59,7 +48,7 @@ class FullInfo extends Component {
                     {this.props.comment ? this.props.comment.map((item, ndx) => <div className="comment" key={ndx}>
                         <p>{item.author} wrote: </p>
                         <p>{item.comment}</p>
-                        <button>Delete</button>
+                        <button id={item.id} onClick={this.props.deleteComment}>Delete</button>
                     </div>) : <p>Write comment</p>}
                 </div>
                     <form onSubmit={this.submitFormHandler}  className="add_comment_div">
@@ -94,7 +83,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     fetchItem: (id) => dispatch(fetchItem(id)),
     fetchComment: (id) => dispatch(fetchComment(id)),
-    commentSubmit: (newComment) => dispatch(postNewComment(newComment))
+    commentSubmit: (newComment) => dispatch(postNewComment(newComment)),
+    deleteComment: (e) => dispatch(deleteComment(e.currentTarget.id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullInfo);

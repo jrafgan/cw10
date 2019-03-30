@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 
 const Toolbar = () => {
     return <div>
-        <NavLink to="/" exact>Главная</NavLink>
+        <NavLink to="/" exact>News</NavLink>
     </div>
 };
 

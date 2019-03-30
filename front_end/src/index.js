@@ -8,10 +8,10 @@ import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
-import itemsReducer from './store/reducers/itemsReducer';
+import newsReducer from './store/reducers/newsReducer';
 
 const rootReducer = combineReducers({
-    items: itemsReducer
+    news: newsReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

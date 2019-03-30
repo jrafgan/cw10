@@ -1,11 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {Route, Switch} from "react-router-dom";
 import Toolbar from "./components/UI/Toolbar/Toolbar";
-import Items from "./containers/Items/Items";
-import NewItem from "./containers/NewItem/NewItem";
+import News from "./containers/News/News";
+import NewPost from "./containers/NewPost/NewPost";
 import './App.css'
 import fullInfo from "./components/fullInfo/fullInfo";
-import EditItem from "./containers/EditItem/EditItem";
 
 class App extends Component {
   render() {
@@ -16,10 +15,9 @@ class App extends Component {
         </header>
         <div style={{marginTop: '20px'}}>
             <Switch>
-                <Route path="/" exact component={Items} />
-                <Route path="/items/new" exact component={NewItem} />
-                <Route path="/items/:id" exact component={fullInfo} />
-                <Route path="/items/:id/edit" exact component={EditItem} />
+                <Route path="/" exact component={News} />
+                <Route path="/news/new" exact component={NewPost} />
+                <Route path="/news/:id" exact component={fullInfo} />
             </Switch>
         </div>
       </Fragment>

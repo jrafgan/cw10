@@ -44,15 +44,14 @@ const createRouter = connection => {
 
     router.post('/', upload.single('image'), (req, res) => {
         console.log(req.body);
-        const item = req.body;
-        item.id = nanoid();
+        const post = req.body;
 
         if (req.file) {
-            item.image = req.file.filename;
+            post.image = req.file.filename;
             console.log('image added');
         }
 
-        connection.query('INSERT INTO `Items` (`Name`, `Category_fk`, `Place_fk`, `Description`, `image`) VALUES (?, ?, ?, ?, ?)', [item.name, item.category, item.place, item.description, item.image], (error, results) => {
+        connection.query('INSERT INTO `News` (`header`, `news_body`, `image`, `date`) VALUES (?, ?, ?, ?)', [post.header, post.description, post.image, post.date], (error, results) => {
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});
@@ -63,16 +62,13 @@ const createRouter = connection => {
         });
     });
 
-    router.put('/:id', upload.single('image'), (req, res) => {
+    router.delete('/:id', (req, res) => {
         console.log(req.body);
-        const item = req.body;
-        item.id = req.params.id;
+        const post = req.body;
+        post.id = req.params.id;
 
-        if (req.file) {
-            item.image = req.file.filename;
-        }
-        //DELETE FROM `hw79_extra`.`Items` WHERE `id`='4';
-        connection.query('UPDATE `Items` WHERE id = ? (`Name`, `Category_fk`, `Place_fk`, `Description`, `image`) VALUES (?, ?, ?, ?, ?, ?)', [item.id, item.name, item.category, item.place, item.description, item.image], (error, results) => {
+        connection.query('DELETE FROM `News` WHERE id = ?', req.params.id, (error, results) => {
+            console.log('req.params.id ', req.params.id);
             if (error) {
                 console.log(error);
                 res.status(500).send({error: 'Database error'});

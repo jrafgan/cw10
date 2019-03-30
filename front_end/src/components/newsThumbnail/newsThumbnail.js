@@ -8,7 +8,7 @@ const styles = {
     marginRight: '10px',
 };
 
-const ItemThumbnail = props => {
+const NewsThumbnail = props => {
     console.log(props.image);
     let image = '';
 
@@ -22,4 +22,4 @@ const ItemThumbnail = props => {
     return <img src={image} style={styles} className='img-thumbnail' alt='Item' />
 };
 
-export default ItemThumbnail;
+export default NewsThumbnail;

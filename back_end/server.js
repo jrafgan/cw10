@@ -1,10 +1,7 @@
 const express = require('express');
-const items = require('./app/items');
-const categories = require('./app/categories');
-const places = require('./app/places');
+const news = require('./app/news');
+const comments = require('./app/comments');
 const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
 const mysql      = require('mysql');
 
 const app = express();
@@ -18,12 +15,11 @@ const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'user',
   password : '1qaz@WSX29',
-  database : 'hw79_extra'
+  database : 'cw10'
 });
 
-app.use('/items', items(connection));
-app.use('/categories', categories(connection));
-app.use('/places', places(connection));
+app.use('/news', news(connection));
+app.use('/comments', comments(connection));
 
 connection.connect((err)=>{
   if (err) {
@@ -38,5 +34,3 @@ connection.connect((err)=>{
   });
 
 });
-
-
