@@ -1,58 +1,33 @@
-CREATE SCHEMA `hw79_extra` DEFAULT CHARACTER SET utf8 ;
-USE `hw79_extra`;
+CREATE SCHEMA `cw10` DEFAULT CHARACTER SET utf8 ;
 
-CREATE TABLE `Categories` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`));
+USE `cw10`;
 
-CREATE TABLE `Places` (
+CREATE TABLE `News` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `description` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
-
-CREATE TABLE `Items` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `category_fk` INT NOT NULL,
-  `place_fk` INT NOT NULL,
-  `description` VARCHAR(255) NULL,
+  `header` VARCHAR(45) NOT NULL,
+  `news_body` VARCHAR(255) NOT NULL,
   `image` VARCHAR(100) NULL,
+  `date` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`));
 
-ALTER TABLE `Items`
-ADD CONSTRAINT `category_id_fk`
-  FOREIGN KEY (`category_fk`)
-  REFERENCES `Categories` (`id`)
+CREATE TABLE `Comments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `news_id` INT NOT NULL,
+  `author` VARCHAR(45) NOT NULL,
+  `comment` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`));
+
+INSERT INTO `cw10`.`News` (`id`, `header`, `news_body`, `image`, `date`) VALUES ('1', ';l;lmkl;k\';l', 'HyperX, являющаяся игровым подразделением компании Kingston Technology, объявила о старте продаж игровой гарнитуры Cloud MIX на территории нашей страны. Данная модель была анонсирована осенью прошлого года и демонстрировалась на выставке CES 2019.', '', '20-13-2018');
+
+ALTER TABLE `Comments`
+ADD INDEX `news_id_idx` (`news_id` ASC);
+ALTER TABLE `Comments`
+ADD CONSTRAINT `news_id`
+  FOREIGN KEY (`news_id`)
+  REFERENCES `News` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-ALTER TABLE `Items`
-ADD CONSTRAINT `place_id_fk`
-  FOREIGN KEY (`place_fk`)
-  REFERENCES `Places` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+INSERT INTO `Comments` (`id`, `news_id`, `author`, `comment`) VALUES ('1', '1', 'anonymous', 'jdfhqwhfiouiqr0wu');
+INSERT INTO `Comments` (`id`, `news_id`, `author`, `comment`) VALUES ('2', '1', 'dsjhfjksfhkl', 'dsjnjkfhkl kjdfhashk ksjdfhj');
 
-INSERT INTO `Places` (`name`, `description`)
-VALUES
-	('Кабинет директора', '3-й этаж, 303-каб'),
-	('Учительская', '2-й этаж, 207-каб'),
-	('Офис №1', '1-й этаж, 101-каб')
-    ;
-
-INSERT INTO `Categories` (`name`, `description`)
-VALUES
-	('Мебель', 'Мягкая, корпусная'),
-	('Компьютерное оборудование', 'Все, что касается компьютера'),
-	('Бытовая техника', 'Электро-оборудование, кроме компьютерного')
-    ;
-
-INSERT INTO `Items` (`id`, `name`, `category_fk`, `place_fk`, `description`, `image`)
-  VALUES
-  	(1, 'золотой стул', 1, 1, '1 штука', 'http://fontan-humor-odessa.com/images/site-elements/znak-gambs-large.png'),
-  	(2, 'ноутбук', 2, 2, '3 штука', 'http://pomoshkomp.ru/wp-content/uploads/2014/08/324.jpg'),
-  	(3, 'микроволновка', 3, 3, '2 штука', 'http://vybortech.ru/wp-content/uploads/2015/07/1680_0.jpg')
-    ;
