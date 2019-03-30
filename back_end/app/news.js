@@ -19,7 +19,7 @@ const createRouter = connection => {
     const router = express.Router();
 
     router.get('/', (req, res) => {
-        connection.query('SELECT * FROM `Items`', (error, results) => {
+        connection.query('SELECT * FROM `News`', (error, results) => {
             if (error) {
                 res.status(500).send({error: 'Database error'});
             }
@@ -29,7 +29,7 @@ const createRouter = connection => {
     });
 
     router.get('/:id', (req, res) => {
-        connection.query('SELECT * FROM `Items` WHERE `id` = ?', req.params.id, (error, results) => {
+        connection.query('SELECT * FROM `News` WHERE `id` = ?', req.params.id, (error, results) => {
             if (error) {
                 res.status(500).send({error: 'Database error'});
             }
